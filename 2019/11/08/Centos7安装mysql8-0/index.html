@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/11/08/Centos7安装mysql8-0/2.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/08/Centos7安装mysql8-0/7.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/08/Centos7安装mysql8-0/3.png">
-<meta property="og:updated_time" content="2019-11-08T09:36:38.000Z">
+<meta property="og:updated_time" content="2020-05-22T08:01:43.859Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7安装mysql8.0">
 <meta name="twitter:description" content="前几天开始学习Linux，在本地虚拟机上安装Centos7操作系统，许多命令都不清楚，一点点学习吧。首先我想在Centos7上安装数据库,选择了mysql数据库进行安装，整个过程中遇到了不少问题，借鉴了他人写的文章，所幸最后安装成功并解决远程访问。现将大体步骤记录如下： 　 借鉴文章:　    1.CentOs7成功安装mysql5.7　    2.Centos7中 mysql5.7 用户 创">
@@ -78,7 +78,7 @@
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
-			<div class="post-count" style="font-size:14px">总字数:12.1k字</div>
+			<div class="post-count" style="font-size:14px">总字数:11.9k字</div>
     		
     			
     			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
@@ -185,7 +185,7 @@
 </a>
         
         <div align="center" class="post-count" style="margin-top:5px">
-            字数：903字 | 预计阅读时长：3分钟
+            字数：901字 | 预计阅读时长：3分钟
         </div>
       </header>
     
@@ -194,22 +194,40 @@
         <p>　 前几天开始学习Linux，在本地虚拟机上安装Centos7操作系统，许多命令都不清楚，一点点学习吧。首先我想在Centos7上安装数据库,选择了mysql数据库进行安装，整个过程中遇到了不少问题，借鉴了他人写的文章，所幸最后安装成功并解决远程访问。现将大体步骤记录如下：</p>
 <p>　 借鉴文章:<br>　    <a href="https://www.jianshu.com/p/225e7c858027" target="_blank" rel="noopener">1.CentOs7成功安装mysql5.7</a><br>　    <a href="https://www.cnblogs.com/52lxl-top/p/9894362.html" target="_blank" rel="noopener">2.Centos7中 mysql5.7 用户 创建 、授权、远程登录</a><br>　    <a href="https://blog.csdn.net/qq_41210698/article/details/89817038" target="_blank" rel="noopener">3.Navicat连接远程数据库报1251的错误</a></p>
 <a id="more"></a>
-<h2 id="一、mysql安装"><a href="#一、mysql安装" class="headerlink" title="一、mysql安装"></a>一、mysql安装</h2><h3 id="1-下载mysql安装包"><a href="#1-下载mysql安装包" class="headerlink" title="1.下载mysql安装包"></a>1.下载mysql安装包</h3><p>　　点击<a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">mysql官网</a>,找到要下载的版本将，复制rpm包地址，执行wget命令<br>　　<img src="/2019/11/08/Centos7安装mysql8-0/4.png" alt></p>
+<h2 id="一、mysql安装"><a href="#一、mysql安装" class="headerlink" title="一、mysql安装"></a>一、mysql安装</h2><p><strong>1.下载mysql安装包</strong><br>　　点击<a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">mysql官网</a>,找到要下载的版本将，复制rpm包地址，执行wget命令</p>
+<blockquote>
+<p><img src="/2019/11/08/Centos7安装mysql8-0/4.png" alt></p>
+</blockquote>
 <pre><code>wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
-</code></pre><h3 id="2-安装mysql"><a href="#2-安装mysql" class="headerlink" title="2.安装mysql"></a>2.安装mysql</h3><pre><code>执行命令 rpm -ivh mysql80-community-release-el7-3.noarch.rpm 
-</code></pre><h3 id="3-安装mysql服务器并启动"><a href="#3-安装mysql服务器并启动" class="headerlink" title="3.安装mysql服务器并启动"></a>3.安装mysql服务器并启动</h3><pre><code>yum repolist enabled | grep mysql.*   查看安装效果
-yum install mysql-community-server    安装mysql服务器
-systemctl start mysqld.service        启动mysql服务
-systemctl status mysqld.service       查看mysql服务运行状态 
-</code></pre><h2 id="二、mysql的一些操作"><a href="#二、mysql的一些操作" class="headerlink" title="二、mysql的一些操作"></a>二、mysql的一些操作</h2><h3 id="1-用户登录，修改密码"><a href="#1-用户登录，修改密码" class="headerlink" title="1.用户登录，修改密码"></a>1.用户登录，修改密码</h3><p>　　mysql在第一次安装后会初始化一个随机密码，我们要做的就是修改这个密码，使用grep ‘password’ /var/log/mysqld.log 命令查看初始随机密码(如没有修改，后续部分操作会提示修改密码)。<br>　　<img src="/2019/11/08/Centos7安装mysql8-0/1.png" alt><br>　　红色框内的就是随机密码，然后输入 mysql -uroot -p 命令，root用户登录，这时需要输入刚才查看的密码。<br>　　<img src="/2019/11/08/Centos7安装mysql8-0/2.png" alt><br>　　这样就表示已经root用户登录成功。<br>　　使用以下命令修改密码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER <span class="string">'root'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'newpassword'</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
-<p>　　这里有个问题，新密码设置的时候如果设置的过于简单会报错,因为mysql默认安装了密码安全检查插件（validate_password）,可以使用SHOW VARIABLES LIKE ‘validate_password%’; 查看完整的密码规则。默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位。否则会提示ERROR 1819 (HY000): Your password does not satisfy the current policy requirements错误，我们在设置新密码时也要遵循这个策略。<br>　　<img src="/2019/11/08/Centos7安装mysql8-0/7.png" alt>    </p>
-<h3 id="2-远程授权访问"><a href="#2-远程授权访问" class="headerlink" title="2.远程授权访问"></a>2.远程授权访问</h3><p>　　数据库在没有授权时，只支持本地访问。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'password'</span> WITH GRANT OPTION;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
+</code></pre><p><strong>2.安装mysql</strong></p>
+<pre><code>执行命令 rpm -ivh mysql80-community-release-el7-3.noarch.rpm 
+</code></pre><p><strong>3.安装mysql服务器并启动</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum repolist enabled | grep mysql.*   查看安装效果</span><br><span class="line">yum install mysql-community-server    安装mysql服务器</span><br><span class="line">systemctl start mysqld.service        启动mysql服务</span><br><span class="line">systemctl status mysqld.service       查看mysql服务运行状态</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、mysql的一些操作"><a href="#二、mysql的一些操作" class="headerlink" title="二、mysql的一些操作"></a>二、mysql的一些操作</h2><p><strong>1.用户登录，修改密码</strong><br>　　mysql在第一次安装后会初始化一个随机密码，我们要做的就是修改这个密码，使用grep ‘password’ /var/log/mysqld.log 命令查看初始随机密码(如没有修改，后续部分操作会提示修改密码)。</p>
+<blockquote>
+<p><img src="/2019/11/08/Centos7安装mysql8-0/1.png" alt></p>
+</blockquote>
+<p>　　红色框内的就是随机密码，然后输入 mysql -uroot -p 命令，root用户登录，这时需要输入刚才查看的密码。</p>
+<blockquote>
+<p><img src="/2019/11/08/Centos7安装mysql8-0/2.png" alt></p>
+</blockquote>
+<p>　　这样就表示已经root用户登录成功。<br>　　使用以下命令修改密码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER <span class="string">'root'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'newpassword'</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
+<p>　　这里有个问题，新密码设置的时候如果设置的过于简单会报错,因为mysql默认安装了密码安全检查插件（validate_password）,可以使用SHOW VARIABLES LIKE ‘validate_password%’; 查看完整的密码规则。默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位。否则会提示ERROR 1819 (HY000): Your password does not satisfy the current policy requirements错误，我们在设置新密码时也要遵循这个策略。
+　</p>
+<blockquote>
+<p><img src="/2019/11/08/Centos7安装mysql8-0/7.png" alt>    </p>
+</blockquote>
+<p><strong>2.远程授权访问</strong><br>　　数据库在没有授权时，只支持本地访问。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'password'</span> WITH GRANT OPTION;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
 <p>　　%代表任意远程用户,可以使用ip写法,代表只有这个ip可以访问。<br>　　这样就允许root用户使用password密码进行远程访问，在navicat上连接即可。</p>
-<h2 id="三、mysql8-0远程访问过程中遇到的问题"><a href="#三、mysql8-0远程访问过程中遇到的问题" class="headerlink" title="三、mysql8.0远程访问过程中遇到的问题"></a>三、mysql8.0远程访问过程中遇到的问题</h2><h3 id="1-ERROR-1064-42000-错误"><a href="#1-ERROR-1064-42000-错误" class="headerlink" title="1.ERROR 1064 (42000)错误"></a>1.ERROR 1064 (42000)错误</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1064 (42000): You have an error <span class="keyword">in</span> your SQL syntax; check the manual that corresponds to your MySQL server version <span class="keyword">for</span> the right syntax to use near <span class="string">'. to '</span>username<span class="string">'@'</span>%<span class="string">''</span> at line 1</span><br></pre></td></tr></table></figure>
+<h2 id="三、mysql8-0远程访问过程中遇到的问题"><a href="#三、mysql8-0远程访问过程中遇到的问题" class="headerlink" title="三、mysql8.0远程访问过程中遇到的问题"></a>三、mysql8.0远程访问过程中遇到的问题</h2><p><strong>1.ERROR 1064 (42000)错误</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1064 (42000): You have an error <span class="keyword">in</span> your SQL syntax; check the manual that corresponds to your MySQL server version <span class="keyword">for</span> the right syntax to use near <span class="string">'. to '</span>username<span class="string">'@'</span>%<span class="string">''</span> at line 1</span><br></pre></td></tr></table></figure>
 <p>　　遇到这个问题，是版本升级后，语法不允许这个输入命令。解决方法，新建远程访问用户，再给这个新用户授权。命令如下:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create user <span class="string">'myuser'</span>@<span class="string">'%'</span> identified by <span class="string">'mypassword'</span>;             新建myuser用户，密码为mypassword</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO <span class="string">'myuser'</span>@<span class="string">'%'</span>WITH GRANT OPTION;    授权myuser用户任意地址访问</span><br><span class="line">FLUSH PRIVILEGES;                                                刷新权限</span><br></pre></td></tr></table></figure>
-<h3 id="2-navicat连接远程数据库报1251错误"><a href="#2-navicat连接远程数据库报1251错误" class="headerlink" title="2.navicat连接远程数据库报1251错误"></a>2.navicat连接远程数据库报1251错误</h3><p>　　这种情况造成的原因，是因为加密规则的不同，8.0版本以前加密规则是mysql_native_password，8.0之后改为caching_sha2_password。解决方法就是将mysql用户登录密码规则还原成mysql_native_password。<br>　　用如下命令查看用户信息，plugin项代表加密方式，并修改为mysql_native_password加密。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select host,user,plugin,authentication_string from mysql.user;              </span><br><span class="line">ALTER USER <span class="string">'user'</span>@<span class="string">'%'</span> IDENTIFIED WITH mysql_native_password BY <span class="string">'password'</span>;   </span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
-<p>　　<img src="/2019/11/08/Centos7安装mysql8-0/3.png" alt><br>　　这样再使用navicat连接远程数据库即可。</p>
+<p><strong>2.navicat连接远程数据库报1251错误</strong></p>
+<p>　　这种情况造成的原因，是因为加密规则的不同，8.0版本以前加密规则是mysql_native_password，8.0之后改为caching_sha2_password。解决方法就是将mysql用户登录密码规则还原成mysql_native_password。<br>　　用如下命令查看用户信息，plugin项代表加密方式，并修改为mysql_native_password加密。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select host,user,plugin,authentication_string from mysql.user;              </span><br><span class="line">ALTER USER <span class="string">'user'</span>@<span class="string">'%'</span> IDENTIFIED WITH mysql_native_password BY <span class="string">'password'</span>;   </span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><img src="/2019/11/08/Centos7安装mysql8-0/3.png" alt></p>
+</blockquote>
+<p>　　这样再使用navicat连接远程数据库即可。</p>
 
       
 
@@ -408,11 +426,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">前端面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">前端面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>
