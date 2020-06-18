@@ -49,7 +49,10 @@
       
 <div class="overlay" style="background: #4d4d4d">
 	<div class="music163">
-		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="280" height="86" src="//music.163.com/outchain/player?type=2&id=462686464&auto=0&height=66"></iframe>
+		<!-- 梦回还 src="//music.163.com/outchain/player?type=2&id=462686464&auto=1&height=66"-->
+		<!-- 处处吻DJ src="//music.163.com/outchain/player?type=2&id=1368327788&auto=1&height=66"-->
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="280" height="86" src="//music.163.com/outchain/player?type=2&id=1368327788&auto=1&height=66">
+		</iframe>
 	</div>
 </div>
 <div class="intrude-less">
@@ -201,7 +204,7 @@
 <pre><code>excerpt_link:                                 截断按钮文字
 show_all_link: &apos;展开全文&apos;                      文章卡片右下角常驻链接
 </code></pre><h3 id="调整css样式，颜色字体等"><a href="#调整css样式，颜色字体等" class="headerlink" title="调整css样式，颜色字体等"></a>调整css样式，颜色字体等</h3><p>　　yilia主题基本样式都是放在yilia/source/main.0cf68a.css里面，在编辑器里直接ctrl +F查找关键词找到你要修改的部分按照自己喜欢的来改就可以了。这个方法不是yilia主题作者推荐的，在yilia下有个source-src文件夹，里边存放的是主题css和js源文件，作者建议在这里边修改后，通过webpack打包后编译到source目录。当然，图省事，以后不会动源文件的话，可以直接在yilia/source/main.0cf68a.css修改。详情请参考<a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">Yilia源码目录结构及构建须知</a>。</p>
-<h3 id="增加不蒜子统计"><a href="#增加不蒜子统计" class="headerlink" title="增加不蒜子统计"></a>增加不蒜子统计</h3><p>　　<a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="noopener">不蒜子脚本</a>，可以用来统计博客的访问量。<br>　　首先，需要在 <label style="color:#ca2591">yilia/layout/_partial/after-footer.ejs</label>最后引入。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script  <span class="keyword">async</span>  src=<span class="string">"https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="增加不蒜子统计"><a href="#增加不蒜子统计" class="headerlink" title="增加不蒜子统计"></a>增加不蒜子统计</h3><p>　　<a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="noopener">不蒜子脚本</a>，可以用来统计博客的访问量。<br>　　首先，需要在 <label style="color:#ca2591">yilia/layout/_partial/after-footer.ejs</label>最后引入。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script  <span class="keyword">async</span>  src=<span class="string">"https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
 <p>　　然后，选择你想插入的地方添加代码。我就是插入到<label style="color:#ca2591">yilia/layout/_partial/footer.ejs</label>中。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"busuanzi_container_site_pv"</span> <span class="attr">style</span>=<span class="string">'font-size:14px'</span>&gt;</span>不蒜子告之 阁下是第</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"busuanzi_value_site_pv"</span>&gt;</span>个访问本站的小伙伴<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>　　在这里，我只使用了访客数量，不蒜子还可以统计文章点击量和站点总访问量。它有两种计算方式，pv和uv。</p>
 <pre><code>pv方式，单个用户连续点击 n 篇，记录 n 次记录值
@@ -419,11 +422,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

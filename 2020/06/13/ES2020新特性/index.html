@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Yijiantianya</title>
+  <title>ES2020新特性 | Yijiantianya</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Yijiantianya">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="可选链　　原来我们在访问对象的深层嵌套属性时，需要检查每个级别中定义的属性，保证代码不会因语法错误导致异常，代码如下1234567let props = &amp;#123;    query: &amp;#123;        id: 1    &amp;#125;&amp;#125;let id = props &amp;amp;&amp;amp; props.query &amp;amp;&amp;amp; props.query.id     //">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES2020新特性">
+<meta property="og:url" content="http://yoursite.com/2020/06/13/ES2020新特性/index.html">
 <meta property="og:site_name" content="Yijiantianya">
+<meta property="og:description" content="可选链　　原来我们在访问对象的深层嵌套属性时，需要检查每个级别中定义的属性，保证代码不会因语法错误导致异常，代码如下1234567let props = &amp;#123;    query: &amp;#123;        id: 1    &amp;#125;&amp;#125;let id = props &amp;amp;&amp;amp; props.query &amp;amp;&amp;amp; props.query.id     //">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-06-18T09:24:07.909Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yijiantianya">
+<meta name="twitter:title" content="ES2020新特性">
+<meta name="twitter:description" content="可选链　　原来我们在访问对象的深层嵌套属性时，需要检查每个级别中定义的属性，保证代码不会因语法错误导致异常，代码如下1234567let props = &amp;#123;    query: &amp;#123;        id: 1    &amp;#125;&amp;#125;let id = props &amp;amp;&amp;amp; props.query &amp;amp;&amp;amp; props.query.id     //">
   
     <link rel="alternative" href="/atom.xml" title="Yijiantianya" type="application/atom+xml">
   
@@ -160,102 +165,121 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ES2020新特性" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="javascript:void(0)" class="archive-article-date" style="color: rgb(27, 205, 211)">
-  	<time datetime="2019-04-26T01:45:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/26/Hexo主题Yilia基本配置/">Hexo主题Yilia基本配置</a>
+    <h1 class="article-title" itemprop="name">
+      ES2020新特性
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="javascript:void(0)" class="archive-article-date" style="color: rgb(27, 205, 211)">
+  	<time datetime="2020-06-13T05:39:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-13</time>
+</a>
+        
+        <div align="center" class="post-count" style="margin-top:5px">
+            字数：919字 | 预计阅读时长：3分钟
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<h3 id="可选链"><a href="#可选链" class="headerlink" title="可选链"></a>可选链</h3><p>　　原来我们在访问对象的深层嵌套属性时，需要检查每个级别中定义的属性，保证代码不会因语法错误导致异常，代码如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> props = &#123;</span><br><span class="line">    query: &#123;</span><br><span class="line">        id: <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> id = props &amp;&amp; props.query &amp;&amp; props.query.id     <span class="comment">// id = 1</span></span><br><span class="line"><span class="keyword">let</span> name = props.info.name  <span class="comment">//Uncaught TypeError: Cannot read property 'name' of undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>　　使用可选链运算符，只需要在对象后边使用?.的方式访问属性即可，如果碰到null或undefined的值，返回undefined，并不会出现错误异常<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> id = props?.query?.id       <span class="comment">// id =1</span></span><br><span class="line"><span class="keyword">let</span> name = props?.info?.name    <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>　　避免了以往采用的判断一个对象值是否存在，再去引用对象中属性的方法(props &amp;&amp; props.query)，层级深的时候，会写一长串代码</p>
+<h3 id="空值合并运算符"><a href="#空值合并运算符" class="headerlink" title="空值合并运算符"></a>空值合并运算符</h3><p>　　在声明变量时，想给变量一个默认值，我们采用 || 的方法去设置默认值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">'王二'</span></span><br><span class="line"><span class="keyword">let</span> defaultName = name || <span class="string">'李三'</span></span><br></pre></td></tr></table></figure></p>
+<p>　　当name值为null或undefined时，defaultName为默认值李三，而这样的会过滤掉值为0,false,””的情况，被默认值所覆盖。<br>　　以往，为了不覆盖此类值，还得单独写条件去判断。现在我们可以使用??操作符来代替||，这只允许在值为null或undefined时使用默认值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name</span><br><span class="line">name = <span class="string">''</span> ?? <span class="string">'王二'</span>     <span class="comment">// ''</span></span><br><span class="line">name = <span class="string">''</span> || <span class="string">'王二'</span>     <span class="comment">// 王二</span></span><br><span class="line">name = <span class="literal">false</span> ?? <span class="string">'王二'</span>  <span class="comment">// ''</span></span><br><span class="line">name = <span class="literal">false</span> || <span class="string">'王二'</span>  <span class="comment">// 王二</span></span><br><span class="line">name = <span class="number">0</span> ?? <span class="string">'王二'</span>      <span class="comment">// ''</span></span><br><span class="line">name = <span class="number">0</span> || <span class="string">'王二'</span>      <span class="comment">// 王二</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="使用-给class类添加私有变量"><a href="#使用-给class类添加私有变量" class="headerlink" title="使用#给class类添加私有变量"></a>使用#给class类添加私有变量</h3><p>　　在最新提案中，可以使用#给class类添加私有变量，不需要使用闭包来隐藏不想暴露给外部的私有变量，具体使用如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> </span>&#123;</span><br><span class="line">    #number = 1</span><br><span class="line">    cumulative() &#123;</span><br><span class="line">        this.#number++</span><br><span class="line">    &#125;</span><br><span class="line">    getNumber() &#123;</span><br><span class="line">        return this.#number++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> counter = <span class="keyword">new</span> Counter()</span><br><span class="line">counter.cumulative()</span><br><span class="line"><span class="built_in">console</span>.log(counter.getNumber())   <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(counter.getNumber())   <span class="comment">// 3</span></span><br><span class="line">console.log(counter.#number)    // Uncaught SyntaxError: Private field '#number' must be declared in an enclosing class</span><br></pre></td></tr></table></figure></p>
+<h3 id="BigInt-任意精度整数"><a href="#BigInt-任意精度整数" class="headerlink" title="BigInt-任意精度整数"></a>BigInt-任意精度整数</h3><p>　　JS中Number类型只能安全的表示-(2^53-1)至 2^53-1 范围的值，超出这个范围的整数计算或者表示会丢失精度，我们可以用 BigInt 对象表示不在这个范围内的数。<br>　　要定义 BigInt，可以像下面的码一样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = BigInt(<span class="number">2</span>)              <span class="comment">// 2n</span></span><br><span class="line"><span class="keyword">let</span> b = BigInt(<span class="string">'22222'</span>)        <span class="comment">// 22222n</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">123</span>n                   <span class="comment">// 123n</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> a)          <span class="comment">// bigint</span></span><br><span class="line"><span class="built_in">console</span>.log(a + b)             <span class="comment">// 22224n</span></span><br><span class="line"><span class="built_in">console</span>.log(b / a)             <span class="comment">// 11111n</span></span><br></pre></td></tr></table></figure></p>
+<p>　　Number类型与BigInt类型比较<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">555</span>n              </span><br><span class="line"><span class="keyword">let</span> b = <span class="number">555</span>  </span><br><span class="line"><span class="built_in">console</span>.log(a === b)        <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(a == b)         <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(a &gt; b)          <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(b &gt; a)          <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>　　BigInt不能与内置Math对象一起使用。在数字与BigInt之间进行转换时必须小心，因为在将BigInt转换为数字时，BigInt的精度可能会丢失，反之亦然。</p>
+<h3 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled"></a>Promise.allSettled</h3><p>　　Promise.allSettled()方法返回一个在所有给定的promise已被决议或被拒绝后决议的promise，并带有一个对象数组，每个对象表示对应的promise结果。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise1 = <span class="built_in">Promise</span>.resolve(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">const</span> promise2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> setTimeout(reject, <span class="number">100</span>, <span class="string">'foo'</span>))</span><br><span class="line"><span class="built_in">Promise</span>.allSettled([promise1, promise2]).then(<span class="function"><span class="params">results</span> =&gt;</span> &#123;</span><br><span class="line">    results.forEach(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// &#123;status: "fulfilled", value: 3&#125;</span></span><br><span class="line"><span class="comment">// &#123;status: "rejected", reason: "foo"&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="import-meta"><a href="#import-meta" class="headerlink" title="import.meta"></a>import.meta</h3><p>　　import.meta是一个给JavaScript模块暴露特定上下文的元数据属性的对象。它包含了这个模块的信息，比如说这个模块的URL。<br>　　import.meta对象由一个关键字”import”,一个点符号和一个meta属性名组成。通常情况下”import.”是作为一个属性访问的上下文，但是在这里”import”不是一个真正的对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"module"</span> src=<span class="string">"my-module.mjs"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">import</span>.meta); <span class="comment">// &#123; url: "file:///home/user/my-module.mjs" &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>　　它返回一个带有url属性的对象，指明模块的基本URL。也可以是外部脚本的URL，还可以是内联脚本所属文档的URL。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="javascript:void(0)" class="archive-article-date" style="color: rgb(27, 205, 211)">
-  	<time datetime="2019-04-25T09:19:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-25</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/05/基于甘特图的项目计划模块/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">基于甘特图的项目计划模块</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/25/利用GithubPages和Hexo搭建博客/">利用Github Pages和Hexo搭建博客</a>
-    </h1>
+        
+        
+    </div>
+</aside>
+
+
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
+    <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    const gitalk = new Gitalk({
+        id: "ES2020新特性",
+        admin: 'tangpengfei111',
+        owner: 'tangpengfei111',
+        repo: 'tangpengfei111.github.io',
+        clientID: 'cfa6a28f8abd2875efc8',
+        clientSecret: '0774c080f105040c89e20a4a76bcb4dcfc9e0242',
+        distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+</script>
 
     
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -279,8 +303,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
